@@ -1,34 +1,21 @@
-import {createStore} from 'redux'
+import { createStore, combineReducers } from "redux";
+import phoneReducer from "./redux/phoneSection/phoneReducer";
+import laptopReducer from "./redux/laptopSection/laptopReducer";
+import { buyPhone, sellPhone } from "./redux/phoneSection/phoneAction";
+import { buyLaptop, sellLaptop } from "./redux/laptopSection/laptopAction";
 
-const Buy_Fruits = 'BUY_FRUITS'
-function buyFruits() {
-  return {
-    type: Buy_Fruits,
-    payload: "Extra Information"
-  }
-}
+const rootReducer = combineReducers({
+  phone: phoneReducer,
+  laptop: laptopReducer
+})
 
-const initialState = {
-  noOfFruits: 5
-}
-
-function reducer(state = initialState, action) {
-  switch (action.type) {
-    case "BUY_FRUITS" :
-      return {
-        ...state,
-        noOfFruits: state.noOfFruits - 1
-      };
-    default:
-      return state
-  }
-}
-
-const store = createStore(reducer)
+const store = createStore(rootReducer)
 
 store.subscribe(() => {
   console.log(store.getState())
 })
 
-store.dispatch(buyFruits())
-store.dispatch(buyFruits())
+store.dispatch(buyPhone())
+store.dispatch(sellLaptop())
+store.dispatch(sellPhone())
+store.dispatch(buyLaptop())
