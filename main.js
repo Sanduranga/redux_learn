@@ -4,17 +4,18 @@ import laptopReducer from "./redux/laptopSection/laptopReducer";
 import { buyPhone, sellPhone } from "./redux/phoneSection/phoneAction";
 import { buyLaptop, sellLaptop } from "./redux/laptopSection/laptopAction";
 import logger from "redux-logger";
+import thunk from "redux-thunk";
+import todoReducer from "./redux/todoApi/todoReducer";
+import { fetchData } from "./redux/todoApi/todoActiond";
 
 const rootReducer = combineReducers({
   phone: phoneReducer,
-  laptop: laptopReducer
+  laptop: laptopReducer,
+  todo: todoReducer,
 })
 
-const store = createStore(rootReducer, applyMiddleware(logger))
+const store = createStore(rootReducer, applyMiddleware(logger, thunk))
 
 store.subscribe(() => {})
 
-store.dispatch(buyPhone())
-store.dispatch(sellLaptop())
-store.dispatch(sellPhone())
-store.dispatch(buyLaptop())
+store.dispatch(fetchData())
